@@ -1,0 +1,7 @@
+﻿The short:
+Use it as you see fit - just gimme some creds 'k?
+
+The long:
+This program is distributed as is, free of charge under the GNU v3 license available at https://www.gnu.org/licenses/gpl-3.0.en.html 
+
+The creator, Andries Koorzen, shall not be held liable for any data / software loss due to the use / misuse of the software. Installation and use of the software signifies consent of these rights.
