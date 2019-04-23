@@ -139,8 +139,11 @@
                 </Button.Background>
             </Button>
         </StackPanel>
-        <TextBlock x:Name="txtOutput" TextWrapping="Wrap"  Grid.Row="1" Background="WhiteSmoke">
+        <ScrollViewer Grid.Row="1">
+            <TextBlock x:Name="txtOutput" TextWrapping="Wrap"   Background="WhiteSmoke">
 
-        </TextBlock>
+            </TextBlock>
+            
+        </ScrollViewer>
     </Grid>
 </Window>

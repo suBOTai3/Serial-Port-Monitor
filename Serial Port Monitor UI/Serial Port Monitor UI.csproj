@@ -125,5 +125,8 @@
   <ItemGroup>
     <Resource Include="Resources\EULA.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Icons.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
