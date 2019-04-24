@@ -43,7 +43,7 @@
         <SolidColorBrush x:Key="RadioButton.UnChecked.Border" Color="Transparent"/>
         <SolidColorBrush x:Key="RadioButton.UnChecked.Glyph" Color="Transparent"/>
         <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF212121"/>
-        
+
         <Style x:Key="RadioButtonImageStyle" TargetType="{x:Type RadioButton}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
@@ -63,8 +63,8 @@
                                 <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" x:Name="mainBackGround" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" Grid.ColumnSpan="2"/>
-                            <Border x:Name="radioButtonBorder" Grid.Row="1" Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1" HorizontalAlignment="Stretch" Margin="1" VerticalAlignment="Stretch" Grid.ColumnSpan="2" />
-                            <ContentPresenter x:Name="contentPresenter" Grid.Column="0" Focusable="False" HorizontalAlignment="Stretch" Margin="0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Bottom" Height="12" Width="Auto" Grid.ColumnSpan="2"/>
+                            <Border x:Name="radioButtonBorder" Grid.Row="1"  Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1" HorizontalAlignment="Stretch" Margin="1" VerticalAlignment="Stretch" Grid.ColumnSpan="2" />
+                            <ContentPresenter x:Name="contentPresenter"  Grid.Column="0" Focusable="False" HorizontalAlignment="Stretch" Margin="0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"  Width="Auto" Grid.ColumnSpan="2" Height="35"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="HasContent" Value="true">
@@ -84,7 +84,7 @@
                             <Trigger Property="IsPressed" Value="true">
                                 <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Background}"/>
                                 <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Background}"/>
-                                <Setter Property="Background" TargetName="templateRoot" Value="Blue"/>
+                                <Setter Property="Background" TargetName="templateRoot" Value="Lime"/>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="true">
                                 <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Checked.Glyph}" />
@@ -106,11 +106,11 @@
             <RowDefinition Height="359*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
-            <RadioButton Width="60" GroupName="PlayPauseStop" BorderBrush="PowderBlue" BorderThickness="1" Checked="btnPlay_Clicked" 
-                         Style="{DynamicResource RadioButtonImageStyle}" >
-                <RadioButton.Background>
-                    <ImageBrush ImageSource="Images/play_blue.png" Stretch="None"/>
-                </RadioButton.Background>
+            <RadioButton Style="{StaticResource RadioButtonImageStyle}"
+                         Width="60" 
+                         GroupName="PlayPauseStop" 
+                         Checked="btnPlay_Clicked" >
+                <Viewbox Child="{StaticResource PlayButtonIcon}" />
             </RadioButton>
             <RadioButton Width="60" GroupName="PlayPauseStop" BorderBrush="PowderBlue" BorderThickness="1" 
                          Style="{DynamicResource RadioButtonImageStyle}" >
@@ -143,7 +143,7 @@
             <TextBlock x:Name="txtOutput" TextWrapping="Wrap"   Background="WhiteSmoke">
 
             </TextBlock>
-            
+
         </ScrollViewer>
     </Grid>
 </Window>

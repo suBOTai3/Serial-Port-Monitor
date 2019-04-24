@@ -1,4 +1,5 @@
 ﻿using SerialPortMonitor.Data;
+using SerialPortMonitor.Enums;
 using Solid.Arduino;
 using Solid.Arduino.Firmata;
 using System;
@@ -30,48 +31,49 @@ namespace SerialPortUI
             InitializeComponent();
         }
 
-        private void btnPlay_Clicked(object sender, RoutedEventArgs e)
+        private async void btnPlay_Clicked(object sender, RoutedEventArgs e)
         {
-            ISerialConnection connection = GetConnection();
-
-            if (connection != null)
-                using (var session = new ArduinoSession(connection))
-                    PerformBasicTest(session);
-
+          
             foreach (var command in PlayList)
             {
                 //session.Send(command);
             }
         }
 
-        private ISerialConnection GetConnection()
+        private async Task<ISerialConnection> GetConnection(IProgress<string> progress)
         {
-            txtOutput.Text += "Searching Arduino connection...";
-            ISerialConnection connection = EnhancedSerialConnection.Find();
+            progress.Report("Searching Arduino connection...");
+            ISerialConnection connection = await Task.Run(() => EnhancedSerialConnection.Find());
 
             if (connection == null)
-                txtOutput.Text += "No connection found. Make shure your Arduino board is attached to a USB port.";
+                progress.Report("No connection found. Make sure your Arduino board is attached to a USB port.");
             else
-                txtOutput.Text += $"Connected to port {connection.PortName} at {connection.BaudRate} baud.";
+                progress.Report($"Connected to port {connection.PortName} at {connection.BaudRate} baud.");
 
             return connection;
         }
 
-        private void PerformBasicTest(IFirmataProtocol session)
+        private void PerformBasicTest(IFirmataProtocol session, IProgress<string> progress)
         {
             var firmware = session.GetFirmware();
-            txtOutput.Text += $"Firmware: {firmware.Name} version {firmware.MajorVersion}.{firmware.MinorVersion}";
+            progress.Report($"Firmware: {firmware.Name} version {firmware.MajorVersion}.{firmware.MinorVersion}");
             var protocolVersion = session.GetProtocolVersion();
-            txtOutput.Text += $"Firmata protocol version {protocolVersion.Major}.{protocolVersion.Minor}";
+            progress.Report($"Firmata protocol version {protocolVersion.Major}.{protocolVersion.Minor}");
 
             session.SetDigitalPinMode(10, PinMode.DigitalOutput);
-            session.SetDigitalPin(10, true);
-            txtOutput.Text += "Command sent: Light on (pin 10)";
-            txtOutput.Text += "Press a key";
+            progress.Report("Command sent: Light on (pin 10) for 2 seconds");
+            int i = 0;
+            while(i < 200){
+
+                session.SetDigitalPin(10, true);
+                System.Threading.Thread.Sleep(10);
+                i++;
+            }
              
             session.SetDigitalPin(10, false);
-            txtOutput.Text += "Command sent: Light off";
+            progress.Report("Command sent: Light off");
         }
+ 
         private void DisplayPortCapabilities()
         {
             using (var session = new ArduinoSession(new EnhancedSerialConnection("COM3", SerialBaudRate.Bps_57600)))
@@ -83,14 +85,16 @@ namespace SerialPortUI
                 {
                     txtOutput.Text += string.Format("\nPin {0}: " +
                         "\n\tInput: {1} " +
-                        "\n\tOutput: {2} " +
-                        "\n\tAnalog: {3}" +
-                        "\n\tAnalog-Res: {4}, PWM: {5}, PWM-Res: {6}" + 
-                        "\n\tServo: {7}" + 
-                        "\n\tServo-Res: {8}" + 
+                        "\t\tOutput: {2} " +
+                        "\t\tAnalog: {3}" +
+                        "\t\tAnalog-Res: {4}" +
+                        "\n\tPWM: {5}" +
+                        "\t\tPWM-Res: {6}" + 
+                        "\t\tServo: {7}" + 
+                        "\t\tServo-Res: {8}" + 
                         "\n\tSerial: {9}" + 
-                        "\n\tEncoder: {10}" + 
-                        "\n\tInput-pullup: {11}",
+                        "\t\tEncoder: {10}" + 
+                        "\t\tInput-pullup: {11}",
                         pin.PinNumber,
                         pin.DigitalInput,
                         pin.DigitalOutput,
@@ -107,8 +111,15 @@ namespace SerialPortUI
             }
         }
 
-        private void btnDisplayDiscoveredCapabilities_Click(object sender, RoutedEventArgs e)
+        private async void btnDisplayDiscoveredCapabilities_Click(object sender, RoutedEventArgs e)
         {
+            IProgress<string> progress = new Progress<string>(statusUpdate => txtOutput.Text += "\n" + statusUpdate);
+            ISerialConnection connection = await GetConnection(progress);
+
+            if (connection != null)
+                using (var session = new ArduinoSession(connection))
+                    PerformBasicTest(session, progress);
+
             DisplayPortCapabilities();
         }
     }
