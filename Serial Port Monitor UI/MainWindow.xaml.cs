@@ -1,4 +1,5 @@
-﻿using SerialPortMonitor.Data;
+﻿using Microsoft.Win32;
+using SerialPortMonitor.Data;
 using SerialPortMonitor.Enums;
 using Solid.Arduino;
 using Solid.Arduino.Firmata;
@@ -121,6 +122,32 @@ namespace SerialPortUI
                     PerformBasicTest(session, progress);
 
             DisplayPortCapabilities();
+        }
+
+        private void btnBrowseCSVOutput_Click(object sender, RoutedEventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog() {
+                  Title = "Choose a file"
+                , AddExtension = true
+                , Filter = "Comma seperated files (*.csv)|*.csv|All files (*.*)|*.*"
+                , FilterIndex = 0
+                 };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                txtOutputCSV.Text = saveFileDialog.FileName;
+                UserSettings.SaveCSVOutputPath(saveFileDialog.FileName);
+            }
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            LoadUserSettings();
+        }
+
+        private void LoadUserSettings()
+        {
+            //TODO: Load usersettings from persistent storage
         }
     }
 }

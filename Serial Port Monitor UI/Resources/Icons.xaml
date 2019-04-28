@@ -2,20 +2,63 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Serial_Port_Monitor_UI.Resources">
 
-    <Ellipse x:Key="ButtonEllipse" Canvas.Left="0.5" Canvas.Top="284.2" Width="12.3" Height="12.3"  StrokeThickness="0.90518785" Stroke="#FF0088AA" StrokeMiterLimit="4" Opacity="1"/>
+    <Color x:Key="Theme.MainColor" R="0" G="136" B="170" A="255"/>
+    <SolidColorBrush x:Key="Theme.Color.Main" Color="{StaticResource Theme.MainColor}" />
+    <PathGeometry x:Key="InfoButtonPath" Figures="M 109.83051 29.084746 96.508735 25.386244 83.186963 21.687742 93.050846 12 102.91473 2.3122587 106.37262 15.698503 Z" FillRule="NonZero" />
     <PathGeometry x:Key="PlayButtonPath" Figures="m 25.263851 277.81323 0.094 -10.43365 0.094 -10.43365 8.98881 5.29823 8.988809 5.29823 -9.082806 5.13542 z" FillRule="NonZero" />
-    <PathGeometry x:Key="PauseButtonIcon" Figures="M 171.86441 12.610169 V 33.355932 M 182.0339 12.610169 V 33.355932" FillRule="NonZero"/>
-    <PathGeometry x:Key="StopButtonIcon" Figures="M 109.83051 29.084746 96.508735 25.386244 83.186963 21.687742 93.050846 12 102.91473 2.3122587 106.37262 15.698503 Z" FillRule="NonZero"/>
-    <Viewbox x:Key="PlayButtonIcon" Stretch="Uniform" >
-        <Canvas Name="svg875" Width="60" Height="60">
+    <PathGeometry x:Key="ConnectedButtonPath" Figures="M 109.83051 29.084746 96.508735 25.386244 83.186963 21.687742 93.050846 12 102.91473 2.3122587 106.37262 15.698503 Z" FillRule="NonZero" />
+    <PathGeometry x:Key="PauseButtonPath" Figures="m 170.44141 12.203125 v 20.746094 h 6 V 12.203125 Z M 180.60938 12.203125 v 20.746094 h 6 V 12.203125 Z" FillRule="NonZero"/>
+    <PathGeometry x:Key="StopButtonPath" Figures="M 109.83051 29.084746 96.508735 25.386244 83.186963 21.687742 93.050846 12 102.91473 2.3122587 106.37262 15.698503 Z" FillRule="NonZero" />
+
+    <Style TargetType="Path">
+        <Style.Setters>
+            <Setter Property="Fill" Value="{StaticResource Theme.Color.Main}" />
+        </Style.Setters>
+    </Style>
+    <Style x:Key="MainEllipse" TargetType="Ellipse">
+        <Style.Setters>
+            <Setter Property="Stroke" Value="{StaticResource Theme.Color.Main}" />
+        </Style.Setters>
+    </Style>
+
+    <Viewbox x:Key="ConnectedButtonIcon" Stretch="Uniform">
+        <Canvas Width="60" Height="60">
             <Canvas.RenderTransform>
-                <TranslateTransform X="0" Y="0"/>
+                <TranslateTransform X="0" Y="0" />
             </Canvas.RenderTransform>
-            <Canvas.Resources/>
-            <!--Unknown tag: sodipodi:namedview-->
-            <!--Unknown tag: metadata-->
-            <Ellipse     Width="55.7" Height="55.7" Name="path936" StrokeThickness="4.09144878" Stroke="#FF0088AA" StrokeMiterLimit="4" Opacity="1"/>
-        <Path Data="{StaticResource PlayButtonPath}" Fill="#FF0088AA" StrokeThickness="2.85237122" Stroke="#FF0088AA" StrokeMiterLimit="4" Opacity="1" Height="25" Stretch="Fill" Canvas.Left="20.975" Canvas.Top="16.585" />
+            <Canvas.Resources />
+            <Ellipse  Stroke="{StaticResource Theme.Color.Main}" Width="55.7" Height="55.7" StrokeThickness="4.09144878"   StrokeMiterLimit="4" Opacity="1" />
+            <Path Data="{StaticResource ConnectedButtonPath}" Fill="#FF0088AA" StrokeThickness="2.85237122"   StrokeMiterLimit="4" Opacity="1" Height="25" Stretch="Fill" Canvas.Left="20.975" Canvas.Top="16.585" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="InfoButtonIcon" Stretch="Uniform">
+        <Canvas Width="60" Height="60">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0" />
+            </Canvas.RenderTransform>
+            <Canvas.Resources />
+            <Ellipse Width="55.7" Height="55.7" Stroke="{StaticResource Theme.Color.Main}"  StrokeThickness="4.09144878"   StrokeMiterLimit="4" Opacity="1" />
+            <Path Data="{StaticResource InfoButtonPath}" Fill="{StaticResource Theme.Color.Main}" StrokeThickness="2.85237122"   StrokeMiterLimit="4" Opacity="1" Height="25" Stretch="Fill" Canvas.Left="20.975" Canvas.Top="16.585" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="PauseButtonIcon" Stretch="Uniform">
+        <Canvas Width="60" Height="60">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0" />
+            </Canvas.RenderTransform>
+            <Canvas.Resources />
+            <Ellipse Width="55.7" Stroke="{StaticResource Theme.Color.Main}"  Height="55.7" StrokeThickness="4.09144878"  StrokeMiterLimit="4" Opacity="1" />
+            <Path Data="{StaticResource PauseButtonPath}" Fill="{StaticResource Theme.Color.Main}" StrokeThickness="2.5" Stroke="{StaticResource Theme.Color.Main}" StrokeMiterLimit="4" Opacity="1" Height="25" Stretch="Fill" Canvas.Left="18.975" Canvas.Top="16.585" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="PlayButtonIcon" Stretch="Uniform">
+        <Canvas Width="60" Height="60">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0" />
+            </Canvas.RenderTransform>
+            <Canvas.Resources />
+            <Ellipse Width="55.7" Stroke="{StaticResource Theme.Color.Main}"  Height="55.7" StrokeThickness="4.09144878"  StrokeMiterLimit="4" Opacity="1" />
+            <Path Data="{StaticResource PlayButtonPath}" Fill="{StaticResource Theme.Color.Main}" StrokeThickness="2.85237122" Stroke="{StaticResource Theme.Color.Main}" StrokeMiterLimit="4" Opacity="1" Height="25" Stretch="Fill" Canvas.Left="20.975" Canvas.Top="16.585" />
         </Canvas>
     </Viewbox>
 </ResourceDictionary>

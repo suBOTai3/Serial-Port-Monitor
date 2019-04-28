@@ -15,4 +15,13 @@ namespace SerialPortMonitor.Enums
         HIGH
     }
     
+    /// <summary>
+    /// The type of output to use when recording data from the hardware
+    /// </summary>
+    public enum OutputType_e
+    {
+        NONE,
+        CSV,
+        SQL,
+    }
 }

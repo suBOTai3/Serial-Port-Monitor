@@ -47,6 +47,8 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Models\SessionCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeSettings.cs" />
+    <Compile Include="UserSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
