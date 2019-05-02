@@ -8,8 +8,8 @@
     <PathGeometry x:Key="PlayButtonPath" Figures="m 25.263851 277.81323 0.094 -10.43365 0.094 -10.43365 8.98881 5.29823 8.988809 5.29823 -9.082806 5.13542 z" FillRule="NonZero" />
     <PathGeometry x:Key="ConnectedButtonPath" Figures="M 109.83051 29.084746 96.508735 25.386244 83.186963 21.687742 93.050846 12 102.91473 2.3122587 106.37262 15.698503 Z" FillRule="NonZero" />
     <PathGeometry x:Key="PauseButtonPath" Figures="m 170.44141 12.203125 v 20.746094 h 6 V 12.203125 Z M 180.60938 12.203125 v 20.746094 h 6 V 12.203125 Z" FillRule="NonZero"/>
-    <PathGeometry x:Key="StopButtonPath" Figures="M 109.83051 29.084746 96.508735 25.386244 83.186963 21.687742 93.050846 12 102.91473 2.3122587 106.37262 15.698503 Z" FillRule="NonZero" />
-
+    <PathGeometry x:Key="StopButtonPath"  Figures="m 12.612441 242.26052 h 25 v 14 H 12.612441 Z" FillRule="NonZero"/>
+    
     <Style TargetType="Path">
         <Style.Setters>
             <Setter Property="Fill" Value="{StaticResource Theme.Color.Main}" />
@@ -59,6 +59,16 @@
             <Canvas.Resources />
             <Ellipse Width="55.7" Stroke="{StaticResource Theme.Color.Main}"  Height="55.7" StrokeThickness="4.09144878"  StrokeMiterLimit="4" Opacity="1" />
             <Path Data="{StaticResource PlayButtonPath}" Fill="{StaticResource Theme.Color.Main}" StrokeThickness="2.85237122" Stroke="{StaticResource Theme.Color.Main}" StrokeMiterLimit="4" Opacity="1" Height="25" Stretch="Fill" Canvas.Left="20.975" Canvas.Top="16.585" />
+        </Canvas>
+    </Viewbox>
+    <Viewbox x:Key="StopButtonIcon" Stretch="Uniform">
+        <Canvas Width="60" Height="60">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0" />
+            </Canvas.RenderTransform>
+            <Canvas.Resources />
+            <Ellipse Width="55.7" Stroke="{StaticResource Theme.Color.Main}"  Height="55.7" StrokeThickness="4.09144878"  StrokeMiterLimit="4" Opacity="1" />
+            <Path Data="{StaticResource StopButtonPath}" Fill="{StaticResource Theme.Color.Main}" StrokeThickness="2.5" Stroke="{StaticResource Theme.Color.Main}" StrokeMiterLimit="4" Opacity="1" Height="23" Width="23" Stretch="Fill" Canvas.Left="17" Canvas.Top="16.585" />
         </Canvas>
     </Viewbox>
 </ResourceDictionary>

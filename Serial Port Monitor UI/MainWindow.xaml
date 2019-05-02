@@ -133,12 +133,12 @@
                          Checked="btnPlay_Clicked">
                 <Viewbox Child="{StaticResource PauseButtonIcon}" />
             </RadioButton>
-            <RadioButton Width="60" GroupName="PlayPauseStop" BorderBrush="PowderBlue" BorderThickness="1"
+            <RadioButton Style="{DynamicResource RadioButtonImageStyle}"
+                         Width="60" 
                          DockPanel.Dock="Left"
-                         Style="{DynamicResource RadioButtonImageStyle}">
-                <RadioButton.Background>
-                    <ImageBrush ImageSource="Images/stop_blue.png" Stretch="None" />
-                </RadioButton.Background>
+                         GroupName="PlayPauseStop" 
+                         >
+                <Viewbox Child="{StaticResource StopButtonIcon}" />
             </RadioButton>
             <Button Width="60" 
                     BorderBrush="PowderBlue" 
