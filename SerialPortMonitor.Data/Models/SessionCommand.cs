@@ -1,4 +1,4 @@
-﻿namespace SerialPortMonitor.Data
+﻿namespace SerialPortMonitor.Data.Models
 {
     public class SessionCommand
     {

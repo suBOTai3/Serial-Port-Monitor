@@ -45,6 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
+    <Compile Include="MacroPlayer.cs" />
+    <Compile Include="Models\Macro.cs" />
+    <Compile Include="Models\MacroStep.cs" />
+    <Compile Include="Models\ProgressReportModel.cs" />
     <Compile Include="Models\SessionCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeSettings.cs" />

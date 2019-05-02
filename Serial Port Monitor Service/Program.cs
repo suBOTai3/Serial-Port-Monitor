@@ -17,8 +17,8 @@ namespace SerialPortMonitorSVC
                     ServiceName = "SerialPortMonitorSVC",
                     CanStop = true,
                     CanPauseAndContinue = true,
-                     ExitCode = 0,
-                                  AutoLog = true,
+                    ExitCode = 0,
+                    AutoLog = true,
                 }
             };
             ServiceBase.Run(ServicesToRun);

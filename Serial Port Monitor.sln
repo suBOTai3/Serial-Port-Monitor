@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serial Port Monitor UI", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortMonitor.Data", "SerialPortMonitor.Data\SerialPortMonitor.Data.csproj", "{0BD79AEA-42F8-4D1B-ADFE-BDEA7C9B01E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortMonitorTests", "SerialPortMonitor.DataTests\SerialPortMonitorTests.csproj", "{EC9E4FD6-54A7-487A-B649-3946633652B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0BD79AEA-42F8-4D1B-ADFE-BDEA7C9B01E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BD79AEA-42F8-4D1B-ADFE-BDEA7C9B01E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BD79AEA-42F8-4D1B-ADFE-BDEA7C9B01E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC9E4FD6-54A7-487A-B649-3946633652B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC9E4FD6-54A7-487A-B649-3946633652B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC9E4FD6-54A7-487A-B649-3946633652B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC9E4FD6-54A7-487A-B649-3946633652B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

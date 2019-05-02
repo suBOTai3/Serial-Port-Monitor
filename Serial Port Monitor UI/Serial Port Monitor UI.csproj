@@ -133,6 +133,10 @@
     <Resource Include="Images\database_gear.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Serial Port Monitor Service\Serial Port Monitor Service.csproj">
+      <Project>{27CA3ED5-D026-4853-A868-B4EA6339D37D}</Project>
+      <Name>Serial Port Monitor Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SerialPortMonitor.Data\SerialPortMonitor.Data.csproj">
       <Project>{0bd79aea-42f8-4d1b-adfe-bdea7c9b01e6}</Project>
       <Name>SerialPortMonitor.Data</Name>

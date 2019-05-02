@@ -9,7 +9,7 @@ namespace SerialPortMonitor.Enums
     /// <summary>
     /// Output type for pins
     /// </summary>
-    public enum PinOut_e
+    public enum PinOutMode
     {
         LOW,
         HIGH
