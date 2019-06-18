@@ -16,10 +16,7 @@ namespace SerialPortUI
     /// </summary>
     public partial class MainWindow : Window
     {
-
         #region "Dependency Properties"
-
-
 
         public int AnalogPinCount
         {
@@ -30,7 +27,7 @@ namespace SerialPortUI
         public static readonly DependencyProperty AnalogPinCountProperty =
             DependencyProperty.Register("AnalogPinCount", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
 
-
+        public ArduinoSession CurrentSession { get; set; } = null;
 
         public int DigitalPinInCount
         {
@@ -42,8 +39,6 @@ namespace SerialPortUI
         public static readonly DependencyProperty DigitalPinInCountProperty =
             DependencyProperty.Register("DigitalPinInCount", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
 
-
-
         public int DigitalPinOutCount
         {
             get { return (int)GetValue(DigitalPinOutCountProperty); }
@@ -52,19 +47,19 @@ namespace SerialPortUI
 
         public static readonly DependencyProperty DigitalPinOutCountProperty =
             DependencyProperty.Register("DigitalPinCount", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
-        
-        #endregion
 
+        #endregion "Dependency Properties"
 
-        ObservableCollection<SessionCommand> PlayList { get; set; } = new ObservableCollection<SessionCommand>();
+        private ObservableCollection<SessionCommand> PlayList { get; set; } = new ObservableCollection<SessionCommand>();
+
         public MainWindow()
         {
             InitializeComponent();
+            LoadDefaultSettings();
         }
 
         private async void btnPlay_Clicked(object sender, RoutedEventArgs e)
         {
-          
             foreach (var command in PlayList)
             {
                 //session.Send(command);
@@ -94,79 +89,79 @@ namespace SerialPortUI
             session.SetDigitalPinMode(10, PinMode.DigitalOutput);
             progress.Report("Command sent: Light on (pin 10) for 2 seconds");
             int i = 0;
-            while(i < 200){
-
+            while (i < 200)
+            {
                 session.SetDigitalPin(10, true);
                 System.Threading.Thread.Sleep(10);
                 i++;
             }
-             
+
             session.SetDigitalPin(10, false);
             progress.Report("Command sent: Light off");
         }
- 
+
         private void DisplayPortCapabilities()
         {
-            using (var session = new ArduinoSession(new EnhancedSerialConnection("COM3", SerialBaudRate.Bps_57600)))
-            {
-                BoardCapability boardCapability = session.GetBoardCapability();
-                txtOutput.Text += "\nBoard Capability:";
+            var port = GetPortFromSelection();
+            var baud = GetBaudRateFromSelection();
+            ISerialConnection connection = EnhancedSerialConnection.Find();
+            if (CurrentSession == null)
+                //CurrentSession = new ArduinoSession(new EnhancedSerialConnection(port, baud));
+                CurrentSession = new ArduinoSession(connection);
 
-                foreach (var pin in boardCapability.Pins)
-                {
-                    txtOutput.Text += string.Format("\nPin {0}: " +
-                        "\n\tInput: {1} " +
-                        "\t\tOutput: {2} " +
-                        "\t\tAnalog: {3}" +
-                        "\t\tAnalog-Res: {4}" +
-                        "\n\tPWM: {5}" +
-                        "\t\tPWM-Res: {6}" + 
-                        "\t\tServo: {7}" + 
-                        "\t\tServo-Res: {8}" + 
-                        "\n\tSerial: {9}" + 
-                        "\t\tEncoder: {10}" + 
-                        "\t\tInput-pullup: {11}",
-                        pin.PinNumber,
-                        pin.DigitalInput,
-                        pin.DigitalOutput,
-                        pin.Analog,
-                        pin.AnalogResolution,
-                        pin.Pwm,
-                        pin.PwmResolution,
-                        pin.Servo,
-                        pin.ServoResolution,
-                        pin.Serial,
-                        pin.Encoder,
-                        pin.InputPullup);
-                }
+            BoardCapability boardCapability = CurrentSession.GetBoardCapability();
+            txtOutput.Text += "\nBoard Capability:";
+
+            foreach (var pin in boardCapability.Pins)
+            {
+                txtOutput.Text += string.Format("\nPin {0}: " +
+                    "\n\tInput: {1} " +
+                    "\t\tOutput: {2} " +
+                    "\t\tAnalog: {3}" +
+                    "\t\tAnalog-Res: {4}" +
+                    "\n\tPWM: {5}" +
+                    "\t\tPWM-Res: {6}" +
+                    "\t\tServo: {7}" +
+                    "\t\tServo-Res: {8}" +
+                    "\n\tSerial: {9}" +
+                    "\t\tEncoder: {10}" +
+                    "\t\tInput-pullup: {11}",
+                    pin.PinNumber,
+                    pin.DigitalInput,
+                    pin.DigitalOutput,
+                    pin.Analog,
+                    pin.AnalogResolution,
+                    pin.Pwm,
+                    pin.PwmResolution,
+                    pin.Servo,
+                    pin.ServoResolution,
+                    pin.Serial,
+                    pin.Encoder,
+                    pin.InputPullup);
             }
         }
 
         private async void btnDisplayDiscoveredCapabilities_Click(object sender, RoutedEventArgs e)
         {
-            await DisplayBoardInfo();
         }
 
-        private async Task DisplayBoardInfo()
+        private void DisplayBoardInfo()
         {
-            IProgress<string> progress = new Progress<string>(statusUpdate => txtOutput.Text += "\n" + statusUpdate);
-            ISerialConnection connection = await GetConnection(progress);
-
-            if (connection != null)
-                using (var session = new ArduinoSession(connection))
-                    PerformBasicTest(session, progress);
-
             DisplayPortCapabilities();
         }
 
         private void btnBrowseCSVOutput_Click(object sender, RoutedEventArgs e)
         {
-            var saveFileDialog = new SaveFileDialog() {
-                  Title = "Choose a file"
-                , AddExtension = true
-                , Filter = "Comma seperated files (*.csv)|*.csv|All files (*.*)|*.*"
-                , FilterIndex = 0
-                 };
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Title = "Choose a file"
+                ,
+                AddExtension = true
+                ,
+                Filter = "Comma seperated files (*.csv)|*.csv|All files (*.*)|*.*"
+                ,
+                FilterIndex = 0
+            };
 
             if (saveFileDialog.ShowDialog() == true)
             {
@@ -175,11 +170,24 @@ namespace SerialPortUI
             }
         }
 
-        private async void Window_ContentRendered(object sender, EventArgs e)
+        private void Window_ContentRendered(object sender, EventArgs e)
         {
             LoadUserSettings();
-            await DisplayBoardInfo();
-            await LoadConnectionSettings("COM3", SerialBaudRate.Bps_9600);
+        }
+
+        private void LoadDefaultSettings()
+        {
+            foreach (SerialBaudRate baudRate in (SerialBaudRate[])Enum.GetValues(typeof(SerialBaudRate)))
+                cboBaudrateSelection.Items.Add(baudRate.ToString().Replace("Bps_", ""));
+
+            cboPortSelection.Items.Add("COM1");
+            cboPortSelection.Items.Add("COM2");
+            cboPortSelection.Items.Add("COM3");
+            cboPortSelection.Items.Add("COM4");
+            cboPortSelection.Items.Add("COM5");
+            cboPortSelection.Items.Add("COM6");
+            cboPortSelection.Items.Add("COM7");
+            cboPortSelection.Items.Add("COM8");
         }
 
         private void LoadUserSettings()
@@ -187,18 +195,15 @@ namespace SerialPortUI
             //TODO: Load usersettings from persistent storage
         }
 
-        private Task LoadConnectionSettings(string comPort, SerialBaudRate baudRate)
+        private void LoadConnectionSettings(string comPort, SerialBaudRate baudRate)
         {
-            return Task.Run(() =>
-            {
-                using (var session = new ArduinoSession(new EnhancedSerialConnection(comPort, baudRate)))
-                {
-                    BoardCapability boardCapability = session.GetBoardCapability();
-                    this.DigitalPinInCount = boardCapability.Pins.Select(pp => pp.DigitalInput).Count();
-                    this.DigitalPinOutCount = boardCapability.Pins.Select(pp => pp.DigitalOutput).Count();
-                    this.AnalogPinCount = boardCapability.Pins.Select(pp => pp.Analog).Count();
-                }
-            });
+            if (CurrentSession == null)
+                CurrentSession = new ArduinoSession(new EnhancedSerialConnection(comPort, baudRate));
+
+            BoardCapability boardCapability = CurrentSession.GetBoardCapability();
+            this.DigitalPinInCount = boardCapability.Pins.Select(pp => pp.DigitalInput).Count();
+            this.DigitalPinOutCount = boardCapability.Pins.Select(pp => pp.DigitalOutput).Count();
+            this.AnalogPinCount = boardCapability.Pins.Select(pp => pp.Analog).Count();
         }
 
         private void BtnTestPinSettings_Click(object sender, RoutedEventArgs e)
@@ -206,8 +211,46 @@ namespace SerialPortUI
             MacroStep pm = new MacroStep();
             pm.Delay = MacroDelay.Value.GetValueOrDefault();
             pm.PinNumber = MacroPin.Value.GetValueOrDefault();
+        }
 
-            
+        private async void Connection_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Primitives.ToggleButton tButton)
+            {
+                if (btnConnectToBoard.IsChecked.GetValueOrDefault())
+                {
+                    //DisplayBoardInfo();
+                    //LoadConnectionSettings(GetPortFromSelection(), GetBaudRateFromSelection());
+                    IProgress<string> progress = new Progress<string>(statusUpdate => txtOutput.Text += "\n" + statusUpdate);
+                    ISerialConnection connection = await GetConnection(progress);
+
+                    if (connection != null)
+                    {
+                        var session = new ArduinoSession(connection);
+                        PerformBasicTest(session, progress);
+                        session.Dispose();
+                        connection.Close();
+                        DisplayPortCapabilities();
+                    }
+                    else
+                        btnConnectToBoard.IsChecked = false;
+                }
+                else
+                {
+                    if (CurrentSession != null)
+                        CurrentSession.Dispose();
+                }
+            }
+        }
+
+        private string GetPortFromSelection()
+        {
+            return cboPortSelection.SelectedValue.ToString();
+        }
+
+        private SerialBaudRate GetBaudRateFromSelection()
+        {
+            return ((SerialBaudRate)int.Parse(cboBaudrateSelection.SelectedValue.ToString()));
         }
     }
 }

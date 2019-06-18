@@ -11,6 +11,10 @@ namespace SerialPortMonitor.Data.Models
     public class MacroStep
     {
         /// <summary>
+        /// User specified descriptio of what the step does
+        /// </summary>
+        public string Description { get; set; }
+        /// <summary>
         /// How long the system thread should wait before executing the next step / command 
         /// </summary>
         public long Delay { get; set; } = 1000;

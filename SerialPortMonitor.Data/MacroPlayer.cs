@@ -4,19 +4,25 @@ using System;
 
 namespace SerialPortMonitor.Data
 {
-    public static class MacroPlayer
+    public class MacroPlayer : IMacroPlayer
     {
-        
-        public static void PlayWithProgress(this ArduinoSession session, Macro macro, IProgress<ProgressReportModel> progress)
+        public ArduinoSession Arduino { get; }
+        public MacroPlayer(ArduinoSession _session)
         {
-            var protocolVersion = session.GetProtocolVersion();
+            this.Arduino = _session;
+        }
+
+
+        public void PlayWithProgress(Macro macro, IProgress<ProgressReportModel> progress)
+        {
+            var protocolVersion = this.Arduino.GetProtocolVersion();
             int stepCount = 1;
 
-            foreach(MacroStep ms in macro.Steps)
+            foreach (MacroStep ms in macro.Steps)
             {
                 progress.Report(new ProgressReportModel() { Description = $"Playing step {stepCount}", Value = (int)(stepCount / macro.Steps.Count) });
-                session.SetDigitalPinMode(ms.PinNumber, ms.PinMode);
-                session.SetDigitalPin(ms.PinNumber, ms.PinOutValue == Enums.PinOutMode.HIGH);
+                Arduino.SetDigitalPinMode(ms.PinNumber, ms.PinMode);
+                Arduino.SetDigitalPin(ms.PinNumber, ms.PinOutValue == Enums.PinOutMode.HIGH);
                 long i = 0;
                 while (i < ms.Delay)
                 {

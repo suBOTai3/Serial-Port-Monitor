@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Solid.Arduino, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolidSoils.Arduino.Client.0.4.0\lib\net45\Solid.Arduino.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,9 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
-    <Compile Include="IMacroPlayer.cs" />
     <Compile Include="MacroPlayer.cs" />
-    <Compile Include="Models\IMacro.cs" />
     <Compile Include="Models\Macro.cs" />
     <Compile Include="Models\MacroStep.cs" />
     <Compile Include="Models\ProgressReportModel.cs" />
@@ -54,12 +55,7 @@
     <Compile Include="UserSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac">
-      <Version>4.9.2</Version>
-    </PackageReference>
-    <PackageReference Include="SolidSoils.Arduino.Client">
-      <Version>0.4.0</Version>
-    </PackageReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

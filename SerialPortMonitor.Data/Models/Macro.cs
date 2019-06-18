@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SerialPortMonitor.Data.Models
 {
-    public class Macro
+    public class Macro : IMacro
     {
         public List<MacroStep> Steps { get; set; } = new List<MacroStep>();
     }

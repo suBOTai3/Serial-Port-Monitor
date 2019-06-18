@@ -28,27 +28,27 @@
             </Canvas.RenderTransform>
             <Canvas.Resources />
             <Canvas>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="rect1573" Fill="#FF0088AA" StrokeThickness="0.5466494" StrokeMiterLimit="4" Opacity="0.8">
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="#FF0088AA" StrokeThickness="0.5466494" StrokeMiterLimit="4" Opacity="0.8">
                     <Path.Data>
                         <PathGeometry Figures="m 11.964699 3.6992562 c -0.07787 -0.077882 -0.203142 -0.077882 -0.281014 0 l -1.081693 1.0817302 -0.285114 -0.285122 c -0.5905247 -0.5905426 -1.5412761 -0.5905426 -2.1317989 0 l -0.00766 0.00742 -9.504e-4 -0.00113 -2.0560081 2.0560824 0.4386494 0.4386605 0.7984231 -0.7984502 0.5729981 0.5730131 -0.7984243 0.7984502 0.055284 0.055258 0.3699342 0.369939 0.798423 -0.7984497 0.5728968 0.5729137 -0.7984242 0.798451 0.3699317 0.369951 0.055383 0.05538 0.798423 -0.7984499 0.5728979 0.5729139 -0.7984253 0.798451 0.4386469 0.4386604 2.0560092 -2.05607 -9.04e-4 -0.00108 0.0077 -0.0074 c 0.590497 -0.5905688 0.590498 -1.541359 -2.5e-5 -2.1319015 L 11.344774 5.5234235 12.426468 4.4417056 c 0.07787 -0.077882 0.07777 -0.2032594 -1.03e-4 -0.2811289 z" FillRule="NonZero" />
                     </Path.Data>
                 </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="rect16083" Fill="#FFFFFF2A" StrokeThickness="0.6272859" StrokeMiterLimit="4" Opacity="0.8">
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="#FFFFFF2A" StrokeThickness="0.6272859" StrokeMiterLimit="4" Opacity="0.8">
                     <Path.Data>
                         <PathGeometry Figures="M 7.3565761 6.1990531 7.9295799 6.7720754 6.333595 8.36813 5.7605936 7.7951074 Z" FillRule="NonZero" />
                     </Path.Data>
                 </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="rect15736" Fill="#FF0088AA" StrokeThickness="0.5466494" StrokeMiterLimit="4" Opacity="0.8">
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="#FF0088AA" StrokeThickness="0.5466494" StrokeMiterLimit="4" Opacity="0.8">
                     <Path.Data>
                         <PathGeometry Figures="m 3.2611176 12.402548 c -0.077871 -0.07788 -0.077874 -0.203145 3.1e-6 -0.281018 L 4.3428138 11.0398 4.0576977 10.754678 c -0.5905214 -0.590542 -0.5905214 -1.5413321 8e-7 -2.1318748 l 0.00771 -0.0074 -9.517e-4 -0.0011 2.0560061 -2.0560701 0.4386469 0.4386606 -0.7984241 0.7984503 0.5729981 0.573013 0.7984256 -0.79845 0.055284 0.05526 0.3699341 0.369939 -0.7984268 0.79845 0.5728968 0.572915 0.7984268 -0.798451 0.3699304 0.369951 0.055383 0.05538 L 7.7571073 9.7918057 8.3300066 10.36472 9.1284309 9.5662696 9.5670767 10.00493 7.5110685 12.061 l -9.864e-4 -0.0011 -0.00766 0.0074 c -0.5905232 0.590543 -1.5412779 0.590543 -2.1317998 0 l -0.2850091 -0.284998 -1.0816932 1.08173 c -0.077873 0.07788 -0.2032444 0.07776 -0.2811158 -9.9e-5 z" FillRule="NonZero" />
                     </Path.Data>
                 </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="rect160830" Fill="#FFFFFF2A" StrokeThickness="0.6257484" StrokeMiterLimit="4" Opacity="0.8">
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#FFFFFF2A" StrokeThickness="0.6257484" StrokeMiterLimit="4" Opacity="0.8">
                     <Path.Data>
                         <PathGeometry Figures="m 8.3548065 7.1972835 0.573 0.5730107 -1.5881684 1.5882411 -0.5730026 -0.573012 z" FillRule="NonZero" />
                     </Path.Data>
                 </Path>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="rect160832" Fill="#FFFFFF2A" StrokeThickness="0.6257484" StrokeMiterLimit="4" Opacity="0.8">
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#FFFFFF2A" StrokeThickness="0.6257484" StrokeMiterLimit="4" Opacity="0.8">
                     <Path.Data>
                         <PathGeometry Figures="M 9.3530357 8.1955127 9.9260361 8.7685239 8.3378671 10.356764 7.7648644 9.7837415 Z" FillRule="NonZero" />
                     </Path.Data>
@@ -57,6 +57,31 @@
         </Canvas>
     </Viewbox>
 
+    <Viewbox x:Key="DisconnectedButtonIcon" Stretch="Uniform">
+        <Canvas Width="6" Height="6">
+            <Canvas.RenderTransform>
+                <TranslateTransform X=".9" Y="1"/>
+            </Canvas.RenderTransform>
+            <Canvas.Resources/>
+            <Canvas >
+                <Canvas.RenderTransform>
+                    <TranslateTransform X="249.27484" Y="-156.75842"/>
+                </Canvas.RenderTransform>
+                <Canvas  Opacity="1"/>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#FF0088AA" StrokeThickness="0.18496478" Stroke="#FF0088AA" StrokeMiterLimit="4" Opacity="0.8">
+                    <Path.Data>
+                        <PathGeometry Figures="m -245.69516 157.25378 c -0.0172 0 -0.0343 0.007 -0.0475 0.0198 l -0.36598 0.36599 -0.0964 -0.0964 c -0.0999 -0.0999 -0.23034 -0.14986 -0.36073 -0.14986 -0.13038 0 -0.26082 0.0499 -0.36073 0.14986 l -0.002 0.002 -2.9e-4 -2.9e-4 -0.69572 0.69558 0.36101 0.36101 0.4442 0.44419 0.36101 0.36102 0.69572 -0.69558 -4.4e-4 -4.4e-4 0.003 -0.002 c 0.19982 -0.19981 0.19982 -0.5215 0 -0.72132 l -0.0965 -0.0965 0.36599 -0.36599 c 0.0263 -0.0263 0.0263 -0.0688 0 -0.0951 l -0.15612 -0.15612 c -0.0132 -0.0132 -0.0304 -0.0198 -0.0476 -0.0198 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="#FF0088AA" StrokeThickness="0.14442976" Stroke="#FF0088AA" StrokeMiterLimit="4" Opacity="0.4">
+                    <Path.Data>
+                        <PathGeometry Figures="m -248.07664 158.68887 -0.40467 0.40452 c -0.0277 0.0142 -0.0541 0.0314 -0.0773 0.0546 l -0.20119 0.20119 c -0.11904 0.11905 -0.11904 0.31065 0 0.4297 l 0.25593 0.25593 -0.23731 0.23731 c -0.0216 0.0216 -0.0216 0.0563 0 0.0779 l 0.17347 0.17333 c 0.0216 0.0216 0.0564 0.0216 0.0779 0 l 0.23717 -0.23717 0.25593 0.25579 c 0.11905 0.11904 0.31065 0.11904 0.4297 0 l 0.20119 -0.20105 c 0.0236 -0.0236 0.0412 -0.0506 0.0555 -0.0788 l 0.40353 -0.40353 z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Canvas>
+    </Viewbox>
+    
     <Viewbox x:Key="DatabaseButtonIcon" Stretch="Uniform">
         <Canvas Width="60" Height="95">
             <Canvas.RenderTransform>
@@ -107,7 +132,7 @@
     </Viewbox>
 
     <Viewbox x:Key="InfoButtonIcon" Stretch="Uniform">
-        <Canvas Width="60.594956" Height="59.319977">
+        <Canvas Width="60.594956" Height="65">
             <Canvas.RenderTransform>
                 <TranslateTransform X="0" Y="0"/>
             </Canvas.RenderTransform>

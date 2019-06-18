@@ -1,17 +1,31 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SerialPortMonitor.Data.Models;
+﻿using SerialPortMonitor.Data.Models;
 using Solid.Arduino;
 using SerialPortMonitor.Data;
 using System;
 using Solid.Arduino.Firmata;
 using System.Collections.Generic;
+using Xunit;
+using Autofac.Extras.Moq;
 
 namespace SerialPortMonitor.DataTests
 {
-    [TestClass]
+     
     public class MacroTests
     {
-        [TestMethod]
+        [Fact]
+        public void MockMacroPlayerFact_Test()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<IMacroPlayer>()
+                    .Setup(mm => mm.PlayWithProgress    )
+
+                    //see https://youtu.be/DwbYxP-etMY?t=1958
+
+            }
+        }
+        
+        [Fact]
         public void BasicPinMacroTest()
         {
             ISerialConnection connection = GetConnection();
@@ -26,7 +40,7 @@ namespace SerialPortMonitor.DataTests
                 }
         }
 
-        private static Macro GetMacroWithStepsMockup()
+        private static IMacro GetMacroWithStepsMockup()
         {
             var retVal = new List<MacroStep>();
 
@@ -53,7 +67,7 @@ namespace SerialPortMonitor.DataTests
             retVal.Add(s1); // On
             retVal.Add(s2); // Off
 
-            Macro macro = new Macro() { Steps = retVal };
+            IMacro macro = new Macro() { Steps = retVal };
             return macro;
         }
 

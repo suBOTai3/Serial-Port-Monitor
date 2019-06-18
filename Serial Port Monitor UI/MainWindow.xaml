@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:SerialPortUI"
         xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="MainWindow"
         ContentRendered="Window_ContentRendered"
-        Height="450" 
+        Height="450"
         Width="800">
     <Window.Resources>
         <Style x:Key="FocusVisual">
@@ -111,8 +111,8 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="271*" />
-            <ColumnDefinition Width="125*" />
+            <ColumnDefinition Width="133*" />
+            <ColumnDefinition Width="65*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -120,6 +120,45 @@
             <RowDefinition Height="30" x:Name="BottomIconRow" />
         </Grid.RowDefinitions>
         <DockPanel VerticalAlignment="Stretch" Grid.ColumnSpan="2" LastChildFill="True">
+            <ToggleButton  x:Name="btnConnectToBoard"
+                           Checked="Connection_Checked"
+                           ToolTip="Click to connect"
+                           IsChecked="False"
+                           Width="60"
+                           Background="Transparent">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True" />
+                            <Trigger Property="IsMouseOver" Value="True" />
+                            <Trigger Property="IsPressed" Value="True" />
+                            <Trigger Property="ToggleButton.IsChecked" Value="True" />
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <Viewbox Child="{StaticResource DisconnectedButtonIcon}" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Viewbox Child="{StaticResource ConnectedButtonIcon}" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
             <RadioButton Style="{StaticResource RadioButtonImageStyle}"
                          Width="60"
                          DockPanel.Dock="Left"
@@ -135,55 +174,39 @@
                 <Viewbox Child="{StaticResource PauseButtonIcon}" />
             </RadioButton>
             <RadioButton Style="{DynamicResource RadioButtonImageStyle}"
-                         Width="60" 
+                         Width="60"
                          DockPanel.Dock="Left"
-                         GroupName="PlayPauseStop" 
-                         >
+                         GroupName="PlayPauseStop">
                 <Viewbox Child="{StaticResource StopButtonIcon}" />
             </RadioButton>
-            <Button Width="60" 
+            <Button Width="60"
                     Background="Transparent"
-                    BorderBrush="Transparent" 
+                    BorderBrush="Transparent"
                     BorderThickness="1"
                     DockPanel.Dock="Left"
                     Margin="20,0,0,0"
                     ToolTip="Click to show saved settings">
                 <Viewbox Child="{StaticResource DatabaseButtonIcon}" Width="40" />
             </Button>
-            <Button Click="btnDisplayDiscoveredCapabilities_Click"
+            <Button
                     Background="Transparent"
-                    BorderBrush="PowderBlue"
+                    BorderBrush="Transparent"
                     BorderThickness="1"
                     DockPanel.Dock="Left"
                     ToolTip="Display discovered capabilities of board"
                     Width="60">
                 <Viewbox Child="{StaticResource InfoButtonIcon}" />
             </Button>
-            <StackPanel Width="150" DockPanel.Dock="Right">
-                <Label Content="Baud rate" />
-                <ComboBox SelectedIndex="1">
-                    <ComboBoxItem Content="2400"/>
-                    <ComboBoxItem Content="9600"/>
-                    <ComboBoxItem Content="14400"/>
-                    <ComboBoxItem Content="19200"/>
-                    <ComboBoxItem Content="28800"/>
-                    <ComboBoxItem Content="38400"/>
-                    <ComboBoxItem Content="57600"/>
-                    <ComboBoxItem Content="76800"/>
-                    <ComboBoxItem Content="115200"/>
-                    <ComboBoxItem Content="230400"/>
-                    <ComboBoxItem Content="250000"/>
-                </ComboBox>
-            </StackPanel>
+            <StackPanel Width="150" DockPanel.Dock="Right" />
             <Grid Margin="10,5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-                <Label Content="Send command"/>
+                <Label Content="Send command" />
                 <DockPanel Grid.Row="1" LastChildFill="True">
                     <Button Content="&gt;&gt;" DockPanel.Dock="Right" />
-                    <TextBox Text="{Binding CurrentSendCommand, Mode=TwoWay}"/>
+                    <TextBox Text="{Binding CurrentSendCommand, Mode=TwoWay}" />
                 </DockPanel>
             </Grid>
         </DockPanel>
@@ -192,27 +215,26 @@
             </TextBlock>
         </ScrollViewer>
         <TabControl Grid.Row="1" Grid.Column="1">
-            <TabItem Header="Record">
+            <TabItem Header="Macro">
                 <Grid>
                     <StackPanel Margin="5,0,5,0">
                         <DockPanel LastChildFill="True">
                             <tk:IntegerUpDown x:Name="MacroPin" Value="1" Minimum="0" Maximum="{Binding MaxPinCount}" DockPanel.Dock="Right" Width="50" Height="25" />
                             <Label Content="Pin number:" DockPanel.Dock="Left" />
                         </DockPanel>
-                        
+
                         <DockPanel LastChildFill="True" Height="20" Margin="5">
-                            <RadioButton x:Name="rbtnPinOut" GroupName="PinInOrPinOut" Content="Pin in" DockPanel.Dock="Right" Width="100"/>
+                            <RadioButton x:Name="rbtnPinOut" GroupName="PinInOrPinOut" Content="Pin in" DockPanel.Dock="Right" Width="100" />
                             <RadioButton x:Name="rbtnPinIn" GroupName="PinInOrPinOut" Content="Pin out" IsChecked="True" DockPanel.Dock="Left" />
                         </DockPanel>
                         <DockPanel LastChildFill="True">
                             <tk:IntegerUpDown x:Name="MacroDelay" Increment="100" Value="1000" Minimum="0" DockPanel.Dock="Right" Width="80" Height="25" />
-                            <Label Content="Wait (milliseconds):" DockPanel.Dock="Left" />
+                            <Label Content="Execute (milliseconds):" DockPanel.Dock="Left" />
                         </DockPanel>
 
                         <StackPanel Margin="10">
                             <Button Content="Test" Margin="0,10" Click="BtnTestPinSettings_Click" />
                             <Button Content="Save" />
-                            
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -259,31 +281,32 @@
                                     <TextBox />
                                     <Label Content="Password" />
                                     <PasswordBox />
-                                    <Button Content="Test" Margin="0,5,0,0"/>
+                                    <Button Content="Test" Margin="0,5,0,0" />
                                 </StackPanel>
                             </Expander>
-                            </Grid>
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Playback" />
         </TabControl>
         <GridSplitter Grid.Row="1" Grid.Column="1" Width="3" HorizontalAlignment="Left" />
-        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2">
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2">
             <DockPanel.Resources>
-                <Style BasedOn="{StaticResource RadioButtonImageStyle}" TargetType="RadioButton">
+                <Style TargetType="RadioButton">
                     <Style.Setters>
-                        <Setter Property="Width" Value="{Binding ActualHeight, ElementName=BottomIconRow}" />
+                        <Setter Property="Width" Value="30" />
                     </Style.Setters>
                 </Style>
             </DockPanel.Resources>
-            <RadioButton DockPanel.Dock="Left" 
-                         Width="30"
-                         Style="{StaticResource RadioButtonImageStyle}"
-                         ToolTip="Click to connect">
-                <Viewbox Child="{StaticResource ConnectedButtonIcon}" />
-            </RadioButton>     
-            <Grid />
+
+            <ComboBox x:Name="cboBaudrateSelection" SelectedIndex="12" Width="80" Height="25" HorizontalContentAlignment="Center" Padding="5" DockPanel.Dock="Right" />
+            <Label Content="Baud rate" Margin="0,0,5,0"  DockPanel.Dock="Right" />
+            <ComboBox x:Name="cboPortSelection" SelectedIndex="2" Width="80" Height="25" HorizontalContentAlignment="Center" Padding="5" DockPanel.Dock="Right" />
+
+            <Label Content="Port" Margin="0,0,5,0" DockPanel.Dock="Right" />
+            <Grid>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>
